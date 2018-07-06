@@ -1,0 +1,30 @@
+language: java
+cache:
+  directories:
+  - "$HOME/.m2"
+jdk:
+- oraclejdk8
+sudo: required
+services:
+- docker
+notifications:
+  slack:
+    secure: mw5cu8p+E+T3CflIjFscV4g8gFwvrLJ6CJd/bGvT728iEkHjKS9Y9z6u8JS/7TQ/kaaVtvKEh/ZTdDOqWGbz2vAipvIcZ7P4Fsau3d9uur6MoE349lOSVSHPeAF/2blme5Ce7w835WHTrvpNMgk3bQQorCLHOrMPyg1Qf0QFvJrilGD/Y9rR0MpRR4K5U62wxMmROqXi+fpGcf0hsnXbKyCS6p/QRT6+qvWwp/NESnlP4B6Laj3I+3p7Q90cqZbc6NZbRFpH2soDgP+v5WjUxa4CZlT3HkK5JwPpgoFItDriLj137WgxYMBUH0SzYDKbYRmIv4g1mt5NrLpac7xwOBiYRVdgYyVfCN6qiPSvy2jn7bYxF8x7X68kyX4/juc3GoEtYLN4t354YffwTFZdC4N/M484tRS+pqpE7wFsuE/a6zeIv+iLCXc6VpMv23et/CaBMDk02NdLHqOlZEt8oTowV1gCAHJ0W6EgrVbNkbC40B3zrl1IJTIBVBxHaym1XogzrDSXaCpdpur+Y4cWUhnoN+kLJB0T7tXJr9IfJE/CpVCub1lNRhOe4SuTqOVnN58CnuHmGkyBfZ0a0Dx71uyMNWFj+5cJTqoRE+i/XuLDCH3rQKr8VP4SsTaGVZoFCTjG+yhcfr+ELE2xwK5m1i+EG/VS0FAs3q2y4/bw1Cc=
+  email:
+  - anthony.denecheau@gmail.com
+  on_success: always
+  on_failure: always
+branches:
+  only:
+  - master
+env:
+  global:
+  - secure: jcXn045NtuisDJl9foRlU07S2se53B2yKqkT9VUyBC3gNIX7+HjgL27Vq/sB0ImPOJ69k6R3UB844ncs5Hv02VAMW/9UvDFPRMeqJkr2zUg+YdFcbKvzkCqrxFvhZ2QPDz2L6mcF22TSVs/5Kvl+hnPz7mBfy+v0JSMKtAJ46mu8/7LG6jR4v0Fk9S0fOjRUZcKcFClfKMl4tUVrBpy6W7eGAXeFuk0SLe+JmFchquCaRNlBTtcdXEtsPa8ThaZVXdtnbmY3pe6vVOuxONMbuUR0Zh67TiR9X/q+dw3h3h59i0v3id1/yCavLJLvDWOclLYJF4zwo3dsE4/TcxkBMGcVMkGmkB17bGwFMOl77uaLe8oGqizZmcaK3CaLqttg1q9a9tMwqfNzZZ4zC/1D+/8fNQTNfoN5R3wFEpOrGdcoaryOASc7XwPpNSuWsMI6ZHJuwiHNE6QJQmzXtLsY/za0UZ9WQIOV9DO/7Z5d+3ypoBjDN1Eh2EmVjkvRg1Lmo08SZ0ep0gS8Z2R6YiPsBTzQHIgiDIKCCqvD9lrE/c7BubVCMpHfdWY2hFN+QWt+xaRm/cF3Y8dmlEqSDwg5VpYO9JRbkDzQz/z8nHPn8j3knejXSbPiys8Wjk3/q+1b0zSMcc9BRvMxcUfimCWHmJGmjYKoXnb0g7de67hy5pY=
+  - secure: QeUMi7jIA/dtnMuFgMwjmhM5F2Gg7GTSaxUb54+H/W9ehfrrGLz+t6t/nL21GcZqJNhKuuOUxbXYKzvtcJe36Nf2m2IxgoWMLYn6345z3lZjGXGKRkVhzEZyPrD/jHVsHMVzgQgo7pbHUlE7LwkjgiMJ/WrjcmbrcE0t48oQyPrlp80HAMatf4zbqL+6CD+KQygIAg9kI9qCWc4W/KhVwSelzMd9AD1HjC8T7rWYChTY3yK2eaFlU5j2Wxq/d+hKtMkWguVvHy1gQWxornoE4YDAuX+9PSNENcYtjBhUeaF10fneCeC0Bdk80X2ok8NbAuueqGOaQ9J1+XTWU9Y0uXUnTve63WZiegqvFQnW/Y6oPLgUytc2hDJD8XtfihiFn3UED3SOmRSwCL69OKDz5zQsLIr5zgOjvHGkf12dFB4yemg2PImoIMMVlBcEaY9qMfMzmUK0nKd1HDuGm+7YUDDzCcJSUOT2fcq+n0prkhP4geO4stmUAKYo05Vnuyww4TzH+QgNp+VHSEBYD6k0isXWiJiqsfeJchuzraGRFXB0st+iJqf4Pw4wlyvKtaP1AC/J53hBOoBQrmsJ9oVmIyZR681Kw4Ak1ekgNeo3wgXjtSI+ZZGAFD0grbe0/yWmNQd1kNq1m8vT5I/lsDCT3x4DCCCC+QzfaOIpu+mIFr8=
+before_install:
+- gem install travis -v 1.8.5 --no-rdoc --no-ri
+- export BUILD_NAME=k8s-dogservice-$TRAVIS_BRANCH-$(date -u "+%Y%m%d%H%M%S")-$TRAVIS_BUILD_NUMBER
+script:
+- sh scripts/travis/tag_build.sh
+- sh scripts/travis/build_services.sh
+- sh scripts/travis/deploy_to_docker_hub.sh
