@@ -2,6 +2,13 @@
 server:
   port: 8090
   
+management:
+  endpoints:
+    web:
+      base-path: /manage
+  security:
+    enabled: false
+  
 security:
   oauth2:
    resource:
