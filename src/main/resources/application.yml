@@ -2,13 +2,20 @@
 server:
   port: 8090
   
+info:
+  app:
+    name: Dog Service
+  
+endpoints:
+    enabled: false
+    info.enabled: true
+    health.enabled: true
+    metrics.enabled: true
+  
 management:
-  endpoints:
-    web:
-      base-path: /manage
   security:
     enabled: false
-  
+      
 security:
   oauth2:
    resource:
