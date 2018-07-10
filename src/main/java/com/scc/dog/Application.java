@@ -12,6 +12,8 @@ import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResour
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 import com.scc.dog.utils.UserContextFilter;
+import com.uber.jaeger.Configuration;
+import com.uber.jaeger.samplers.ProbabilisticSampler;
 
 @SpringBootApplication
 @EnableResourceServer
@@ -30,8 +32,10 @@ public class Application {
     }
     
 	@Bean
-	public Sampler defaultSampler() {
-		return new AlwaysSampler();
+	public io.opentracing.Tracer jaegerTracer() {
+		return new Configuration("dog-service", new Configuration.SamplerConfiguration(ProbabilisticSampler.TYPE, 1),
+				new Configuration.ReporterConfiguration())
+				.getTracer();
 	}
 
 	public static void main(String[] args) {

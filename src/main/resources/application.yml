@@ -21,10 +21,6 @@ security:
    resource:
       userInfoUri: http://authentication-service:8095/auth/user
 
-spring:
-  zipkin:
-    base-url: http://${ZIPKIN_SERVICE_HOST}:${ZIPKIN_SERVICE_PORT}
-        
 #Setting logging levels
 logging:
     level:
