@@ -15,27 +15,14 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 
 import com.scc.dog.utils.UserContextFilter;
 
-import io.opentracing.Tracer;
-import io.opentracing.contrib.spring.web.autoconfig.WebTracingConfiguration;
-
 @SpringBootApplication
 @EnableResourceServer
 public class Application {
-
-    @Autowired
-    public Tracer tracer;
 
 	@Bean
     public Filter userContextFilter() {
         UserContextFilter userContextFilter = new UserContextFilter();
         return userContextFilter;
-    }
-    
-    @Bean
-    public WebTracingConfiguration webTracingConfiguration() {
-        return WebTracingConfiguration.builder()
-                .withSkipPattern(Pattern.compile("/health"))
-                .build();
     }
     
     @Bean
