@@ -11,9 +11,11 @@ import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResour
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 import com.scc.dog.utils.UserContextFilter;
+import io.jaegertracing.internal.samplers.ProbabilisticSampler;
 
 import io.jaegertracing.Configuration;
 import io.jaegertracing.Configuration.ReporterConfiguration;
+import io.jaegertracing.Configuration.SamplerConfiguration;
 import io.opentracing.Tracer;
 
 @SpringBootApplication
@@ -21,14 +23,14 @@ import io.opentracing.Tracer;
 public class Application {
 
 	@Bean
-	public io.opentracing.Tracer jaegerTracer() {
+	public Tracer jaegerTracer() {
 		
-		Configuration configuration = new Configuration("dog-service")
-			.withReporter(new ReporterConfiguration());
-		
-		return configuration
-			    .getTracerBuilder()
-			    .build();
+		return new Configuration("dog-service")
+			.withSampler(new SamplerConfiguration().withType(ProbabilisticSampler.TYPE).withParam(1.0))
+			.withReporter(new ReporterConfiguration())
+			.getTracerBuilder()
+		    .build();
+			    
 	}
 	
 	@Bean
