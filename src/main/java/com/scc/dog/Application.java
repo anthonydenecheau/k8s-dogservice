@@ -33,9 +33,10 @@ public class Application {
 			            .withParam(new Float(1.0f)))
 			    .withReporter(
 			        new ReporterConfiguration()
-			            .withSender(
-			                new SenderConfiguration()
-			                    .withEndpoint("http://localhost:14268/api/traces")))
+//			            .withSender(
+//			                new SenderConfiguration()
+//			                    .withEndpoint("http://localhost:14268/api/traces"))
+			     )
 			    .getTracer();
 		return tracer;
 			    
