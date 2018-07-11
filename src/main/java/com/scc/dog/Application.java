@@ -12,10 +12,25 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 
 import com.scc.dog.utils.UserContextFilter;
 
+import io.jaegertracing.Configuration;
+import io.jaegertracing.Configuration.ReporterConfiguration;
+import io.opentracing.Tracer;
+
 @SpringBootApplication
 @EnableResourceServer
 public class Application {
 
+	@Bean
+	public io.opentracing.Tracer jaegerTracer() {
+		
+		Configuration configuration = new Configuration("dog-service")
+			.withReporter(new ReporterConfiguration());
+		
+		return configuration
+			    .getTracerBuilder()
+			    .build();
+	}
+	
 	@Bean
     public Filter userContextFilter() {
         UserContextFilter userContextFilter = new UserContextFilter();
