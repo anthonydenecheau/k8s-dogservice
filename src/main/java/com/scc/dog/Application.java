@@ -12,7 +12,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 
 import com.scc.dog.utils.UserContextFilter;
 
-import io.jaegertracing.internal.samplers.ConstSampler;
+import io.jaegertracing.samplers.ConstSampler;
 import io.jaegertracing.Configuration;
 import io.jaegertracing.Configuration.ReporterConfiguration;
 import io.jaegertracing.Configuration.SamplerConfiguration;
