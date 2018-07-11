@@ -1,6 +1,10 @@
 package com.scc.dog;
 
+import java.util.regex.Pattern;
+
 import javax.servlet.Filter;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -11,14 +15,27 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 
 import com.scc.dog.utils.UserContextFilter;
 
+import io.opentracing.Tracer;
+import io.opentracing.contrib.spring.web.autoconfig.WebTracingConfiguration;
+
 @SpringBootApplication
 @EnableResourceServer
 public class Application {
 
-    @Bean
+    @Autowired
+    public Tracer tracer;
+
+	@Bean
     public Filter userContextFilter() {
         UserContextFilter userContextFilter = new UserContextFilter();
         return userContextFilter;
+    }
+    
+    @Bean
+    public WebTracingConfiguration webTracingConfiguration() {
+        return WebTracingConfiguration.builder()
+                .withSkipPattern(Pattern.compile("/health"))
+                .build();
     }
     
     @Bean
