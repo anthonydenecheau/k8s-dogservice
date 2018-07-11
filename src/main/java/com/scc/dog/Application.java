@@ -3,8 +3,6 @@ package com.scc.dog;
 import javax.servlet.Filter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.sleuth.Sampler;
-import org.springframework.cloud.sleuth.sampler.AlwaysSampler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
@@ -12,8 +10,6 @@ import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResour
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 import com.scc.dog.utils.UserContextFilter;
-import com.uber.jaeger.Configuration;
-import com.uber.jaeger.samplers.ProbabilisticSampler;
 
 @SpringBootApplication
 @EnableResourceServer
@@ -31,13 +27,6 @@ public class Application {
         return new OAuth2RestTemplate(details, oauth2ClientContext);
     }
     
-	@Bean
-	public io.opentracing.Tracer jaegerTracer() {
-		return new Configuration("dog-service", new Configuration.SamplerConfiguration(ProbabilisticSampler.TYPE, 1),
-				new Configuration.ReporterConfiguration())
-				.getTracer();
-	}
-
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}

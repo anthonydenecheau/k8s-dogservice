@@ -1,5 +1,6 @@
 package com.scc.dog.utils;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,7 +15,13 @@ public class UserContext {
     public static String getAuthToken() { return authToken.get(); }
     public static void setAuthToken(String aToken) {authToken.set(aToken);}
     
-	public String getAuthentificationKey() { return authentificationKey.get();}
-	public void setAuthentificationKey(String aKey) { authentificationKey.set(aKey);}
+	public static String getAuthentificationKey() { return authentificationKey.get();}
+	public static void setAuthentificationKey(String aKey) { authentificationKey.set(aKey);}
 	
+    public static HttpHeaders getHttpHeaders(){
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set(AUTHENTICATION_KEY, getAuthToken());
+
+        return httpHeaders;
+    }
 }

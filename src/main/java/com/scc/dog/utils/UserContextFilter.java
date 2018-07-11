@@ -24,10 +24,14 @@ public class UserContextFilter implements Filter {
 
 
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-        UserContextHolder.getContext().setAuthentificationKey( httpServletRequest.getHeader(UserContext.AUTHENTICATION_KEY) );
-        UserContextHolder.getContext().setAuthToken(httpServletRequest.getHeader(UserContext.AUTH_TOKEN));
         
-        logger.debug("Incoming Authentification key: {}", UserContextHolder.getContext().getAuthentificationKey());
+        String authToken = httpServletRequest.getHeader(UserContext.AUTH_TOKEN);
+        String authKey = httpServletRequest.getHeader(UserContext.AUTHENTICATION_KEY);
+        
+        UserContextHolder.getContext().setAuthentificationKey(authKey);
+        UserContextHolder.getContext().setAuthToken(authToken);
+        
+        logger.debug("Incoming Authentification key: {}", authKey);
         filterChain.doFilter(httpServletRequest, servletResponse);
     }
 
