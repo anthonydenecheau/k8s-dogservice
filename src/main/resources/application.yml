@@ -16,6 +16,15 @@ management:
   security:
     enabled: ${MANAGEMENT_SECURITY_ENABLED}
       
+opentracing:
+  jaeger:
+    log-spans: false
+    const-sampler:
+      decision: true
+    probabilistic-sampler:
+      sampling-rate: 1.0
+    enable-b3-propagation: true      
+      
 security:
   oauth2:
    resource:

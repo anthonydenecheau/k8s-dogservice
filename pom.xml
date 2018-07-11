@@ -54,7 +54,7 @@
         <artifactId>spring-security-rsa</artifactId>
     </dependency>
      
-<!-- 	<dependency>
+ 	<dependency>
 		<groupId>io.opentracing.contrib</groupId>
 		<artifactId>opentracing-spring-cloud-starter</artifactId>
 		<version>0.1.6</version>
@@ -63,11 +63,6 @@
 	    <groupId>io.jaegertracing</groupId>
 	    <artifactId>jaeger-core</artifactId>
 	    <version>0.30.0</version>
-	</dependency> -->
-	<dependency>
-	    <groupId>io.opentracing.contrib</groupId>
-	    <artifactId>opentracing-spring-cloud-starter-jaeger</artifactId>
-	    <version>0.1.13</version>
 	</dependency>
 		     
     <dependency>
