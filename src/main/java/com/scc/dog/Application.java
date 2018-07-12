@@ -16,7 +16,6 @@ import io.jaegertracing.samplers.ConstSampler;
 import io.jaegertracing.Configuration;
 import io.jaegertracing.Configuration.ReporterConfiguration;
 import io.jaegertracing.Configuration.SamplerConfiguration;
-import io.jaegertracing.Configuration.SenderConfiguration;
 import io.opentracing.Tracer;
 
 @SpringBootApplication
@@ -25,37 +24,30 @@ public class Application {
 
 	@Bean
 	public Tracer jaegerTracer() {
-		
-		final Tracer tracer = new Configuration("dog-service")
-			    .withSampler(
-			        new SamplerConfiguration()
-			            .withType(ConstSampler.TYPE)
-			            .withParam(new Float(1.0f)))
-			    .withReporter(
-			        new ReporterConfiguration()
-//			            .withSender(
-//			                new SenderConfiguration()
-//			                    .withEndpoint("http://localhost:14268/api/traces"))
-			     )
-			    .getTracer();
-		return tracer;
-			    
+        final Tracer tracer = new Configuration("dog-service")
+        	    .withSampler(
+        	        new SamplerConfiguration()
+        	            .withType(ConstSampler.TYPE)
+        	            .withParam(new Float(1.0f)))
+        	    .withReporter(
+        	        new ReporterConfiguration())
+        	    .getTracer();
+        return tracer;
 	}
-	
-	@Bean
+
+    @Bean
     public Filter userContextFilter() {
         UserContextFilter userContextFilter = new UserContextFilter();
         return userContextFilter;
     }
     
     @Bean
-    public OAuth2RestTemplate oauth2RestTemplate(OAuth2ClientContext oauth2ClientContext,
-                                                 OAuth2ProtectedResourceDetails details) {
+    public OAuth2RestTemplate oauth2RestTemplate(OAuth2ClientContext oauth2ClientContext, OAuth2ProtectedResourceDetails details) {
         return new OAuth2RestTemplate(details, oauth2ClientContext);
     }
     
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-	}
-	
+    public static void main(String[] args) {
+    	SpringApplication.run(Application.class, args);
+    }
+
 }

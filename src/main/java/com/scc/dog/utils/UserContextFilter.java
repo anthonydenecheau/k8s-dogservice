@@ -16,23 +16,23 @@ import java.io.IOException;
 
 @Component
 public class UserContextFilter implements Filter {
+
     private static final Logger logger = LoggerFactory.getLogger(UserContextFilter.class);
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws IOException, ServletException {
 
-
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-        
         String authToken = httpServletRequest.getHeader(UserContext.AUTH_TOKEN);
         String authKey = httpServletRequest.getHeader(UserContext.AUTHENTICATION_KEY);
-        
+
         UserContextHolder.getContext().setAuthentificationKey(authKey);
         UserContextHolder.getContext().setAuthToken(authToken);
-        
+
         logger.debug("Incoming Authentification key: {}", authKey);
         filterChain.doFilter(httpServletRequest, servletResponse);
+
     }
 
     @Override
@@ -40,5 +40,5 @@ public class UserContextFilter implements Filter {
 
     @Override
     public void destroy() {}
-    
+
 }

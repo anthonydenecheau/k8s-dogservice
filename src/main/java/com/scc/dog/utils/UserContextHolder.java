@@ -1,9 +1,9 @@
 package com.scc.dog.utils;
 
-
 import org.springframework.util.Assert;
 
 public class UserContextHolder {
+
     private static final ThreadLocal<UserContext> userContext = new ThreadLocal<UserContext>();
 
     public static final UserContext getContext(){
@@ -12,9 +12,9 @@ public class UserContextHolder {
         if (context == null) {
             context = createEmptyContext();
             userContext.set(context);
-
         }
         return userContext.get();
+
     }
 
     public static final void setContext(UserContext context) {
@@ -25,4 +25,5 @@ public class UserContextHolder {
     public static final UserContext createEmptyContext(){
         return new UserContext();
     }
+
 }

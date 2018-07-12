@@ -16,22 +16,23 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 public class DogController {
-   
+
     @Autowired
     private io.opentracing.Tracer tracer;
-	
+
     @RequestMapping(value="/v1/dogs/{id}",method = RequestMethod.GET)
     public Dog getDogById( @PathVariable("id") int id) {
-
-    	Optional.ofNullable(tracer.activeSpan()).ifPresent(as -> as.setBaggageItem("transaction", "buy"));
+        
+        Optional.ofNullable(tracer.activeSpan()).ifPresent(as -> as.setBaggageItem("transaction", "buy"));
         try (Scope scope = tracer.buildSpan("SomeWork").startActive(true)) {
             scope.span().setTag("work", "buying");
-            
-	        return new Dog()
-	        	.withId(id)
-	        	.withNom("SNOOPY")
-	        ;
+
+            return new Dog()
+               .withId(id)
+               .withNom("SNOOPY")
+            ;
         }
+
     }  
- 
+
 }

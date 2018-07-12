@@ -4,7 +4,7 @@ server:
   
 info:
   app:
-    name: Dog Service local
+    name: Dog Service
  
 endpoints:
     enabled: false
@@ -14,7 +14,7 @@ endpoints:
   
 management:
   security:
-    enabled: true
+    enabled: ${MANAGEMENT_SECURITY_ENABLED}
       
 opentracing:
   jaeger:
@@ -28,7 +28,7 @@ opentracing:
 security:
   oauth2:
    resource:
-      userInfoUri: http://locahost:8095/auth/user
+      userInfoUri: http://authentication-service:8095/auth/user
 
 #Setting logging levels
 logging:

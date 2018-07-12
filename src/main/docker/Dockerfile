@@ -5,7 +5,7 @@ RUN mkdir -p /usr/local/dog-service
 ADD @project.build.finalName@.jar /usr/local/dog-service/
 
 ENV JAVA_OPTS="-Duser.timezone=Europe/Paris"
-ENV SPRING_PROFILE="default"
+ENV SPRING_PROFILE=${SPRING_PROFILE}
 ENV SERVER_PORT="8090"
 
 ENTRYPOINT exec java $JAVA_OPTS \
