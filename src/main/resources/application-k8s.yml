@@ -12,7 +12,7 @@ endpoints:
 management:
   info:
     git:
-      mode: simple
+      mode: full
   security:
     enabled: ${MANAGEMENT_SECURITY_ENABLED}
       

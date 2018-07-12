@@ -97,10 +97,10 @@
                   <directory>src/main/docker</directory>
                   <filtering>true</filtering>
                 </resource>
-        <resource>
-            <directory>src/main/resources</directory>
-            <filtering>true</filtering>
-        </resource>                
+		        <resource>
+		            <directory>src/main/resources</directory>
+		            <filtering>true</filtering>
+		        </resource>                
               </resources>
             </configuration>
           </execution>
@@ -109,17 +109,21 @@
 	  <plugin>
 		<groupId>pl.project13.maven</groupId>
 		<artifactId>git-commit-id-plugin</artifactId>
-		<configuration>
+ 		<version>2.2.4</version>
+ 		<configuration>
 	        <dateFormat>dd.MM.yyyy '@' HH:mm:ss z</dateFormat>
+<!--
 	        <useNativeGit>true</useNativeGit>
 	        <generateGitPropertiesFile>false</generateGitPropertiesFile>
+ -->
  			<failOnNoGitDirectory>false</failOnNoGitDirectory>
-			<includeOnlyProperties>    
+ 			<includeOnlyProperties> 
     			<includeOnlyProperty>git.tags</includeOnlyProperty>
+    			<includeOnlyProperty>git.commit.id</includeOnlyProperty>
     			<includeOnlyProperty>git.commit.user.name</includeOnlyProperty>
     			<includeOnlyProperty>git.commit.message.full</includeOnlyProperty>
     			<includeOnlyProperty>git.commit.time</includeOnlyProperty>
-			</includeOnlyProperties>
+ 			</includeOnlyProperties>
  		</configuration>
 	  </plugin>      
       <plugin>
