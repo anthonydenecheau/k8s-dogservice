@@ -14,7 +14,7 @@ endpoints:
   
 management:
   security:
-    enabled: true
+    enabled: false
       
 opentracing:
   jaeger:
@@ -28,7 +28,7 @@ opentracing:
 security:
   oauth2:
    resource:
-      userInfoUri: http://locahost:8095/auth/user
+      userInfoUri: http://localhost:8095/auth/user
 
 #Setting logging levels
 logging:

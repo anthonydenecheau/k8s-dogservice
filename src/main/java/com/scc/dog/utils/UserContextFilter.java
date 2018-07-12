@@ -30,7 +30,9 @@ public class UserContextFilter implements Filter {
         UserContextHolder.getContext().setAuthentificationKey(authKey);
         UserContextHolder.getContext().setAuthToken(authToken);
 
-        logger.debug("Incoming Authentification key: {}", authKey);
+        if (httpServletRequest.getRequestURI().indexOf("api") > 0)
+            logger.debug("Incoming Authentification key: {}", authKey);
+        
         filterChain.doFilter(httpServletRequest, servletResponse);
 
     }

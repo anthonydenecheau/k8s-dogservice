@@ -6,7 +6,7 @@ ADD @project.build.finalName@.jar /usr/local/dog-service/
 
 ENV JAVA_OPTS="-Duser.timezone=Europe/Paris"
 ENV SPRING_PROFILE=${SPRING_PROFILE}
-ENV SERVER_PORT="8090"
+ENV SERVER_PORT=${SERVER_PORT}
 
 ENTRYPOINT exec java $JAVA_OPTS \
  -Dserver.port=$SERVER_PORT \
