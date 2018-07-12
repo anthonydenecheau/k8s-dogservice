@@ -1,6 +1,7 @@
 info:
   app:
-    name: Dog Service
+    name: "@project.name@"
+    descrption: "@project.description@"
  
 endpoints:
     enabled: false
@@ -9,6 +10,9 @@ endpoints:
     metrics.enabled: true
   
 management:
+  info:
+    git:
+      mode: simple
   security:
     enabled: ${MANAGEMENT_SECURITY_ENABLED}
       
