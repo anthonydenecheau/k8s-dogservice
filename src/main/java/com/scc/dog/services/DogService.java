@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.scc.dog.model.Dog;
+import com.scc.dog.model.Owner;
 
+import io.jaegertracing.SpanContext;
 import io.opentracing.Scope;
 
 import org.slf4j.Logger;
@@ -25,10 +27,12 @@ public class DogService {
         Dog _dog = null;
         
         try (Scope scope = tracer.buildSpan("DogService.getDogById").startActive(true)) {
-            String owner = retrieveOwner(id);
+            scope.span().setTag("jaeger-debug-id", getSpanId());
+
             _dog = new Dog()
                     .withId(id)
-                    .withNom("SNOOPY")
+                    .withName("SNOOPY")
+                    .withOwner(retrieveOwner(id))
              ;
 
         }finally{
@@ -37,17 +41,29 @@ public class DogService {
         return _dog;
     }
     
-    private String retrieveOwner(int dogId) {
+    private Owner retrieveOwner(int dogId) {
+        
+        Owner _owner = null;
         
         try (Scope scope = tracer.buildSpan("DogService.retrieveOwner").startActive(true)) {
-            scope.span().setTag("work", "retrieve");
-            
-            scope.span().setTag("work", "format");
+            scope.span().setTag("jaeger-debug-id", getSpanId());
+        
+            _owner = new Owner()
+                    .withId(1)
+                    .withName("CHARLIE BROWN")
+            ;
             
         }finally {
         }
         
-        return null;
+        return _owner;
+        
+    }
+    
+    private String getSpanId() {
+        
+        SpanContext c = (SpanContext) tracer.activeSpan().context();
+        return Long.toString(c.getSpanId());
         
     }
 }
